@@ -68,45 +68,6 @@ class _Page2State extends State<Page2> {
   double rating = 0;
   File? _selectedImage; // Define _selectedImage of type File
 
-  Future _pickImageFromCamera() async {
-    final picker = ImagePicker();
-    print('picker');
-
-    // Get a list of available cameras
-    var cameras = await availableCameras();
-
-    // Initialize the camera controller with camera 0
-    CameraController cameraController = CameraController(
-      cameras[0],
-      ResolutionPreset.medium,
-      enableAudio: false,
-    );
-
-    try {
-      // Initialize the camera controller
-      await cameraController.initialize();
-
-      // Use the ImagePicker to pick an image from the camera
-      final pickedFile = await picker.pickImage(source: ImageSource.camera);
-
-      print('pick file');
-
-      // Handle the picked file as needed
-      setState(() {
-        if (pickedFile != null) {
-          _selectedImage = File(pickedFile.path);
-        } else {
-          print('No image selected.');
-        }
-      });
-    } catch (e) {
-      print('Error initializing camera: $e');
-    } finally {
-      // Dispose of the camera controller when done
-      cameraController.dispose();
-    }
-  }
-
   @override
   void initState() {
     super.initState();
